@@ -1,0 +1,64 @@
+---
+title: '"ANA 515 Assignment 1"'
+author: "Melissa Jayawardane"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+yaml_code <- '
+---
+title: "ANA 515 Assignment 1"
+author: "Melissa Jayawardane""
+output:
+  html_document:
+    theme:
+      bootswatch: "Flatly"
+---
+'
+
+```
+
+
+
+
+```{r}
+library(tidyverse)
+library(bslib)
+library(knitr)
+```
+
+```{r}
+url <- "https://raw.githubusercontent.com/fivethirtyeight/data/master/fifa/fifa_countries_audience.csv"
+dataset <- read_csv(url)
+dataset
+```
+
+```{r}
+filtered <- dataset %>% filter(population_share <= 1.0)
+```
+
+```{r}
+summary(filtered)
+```
+
+```{r}
+ggplot(filtered, aes(x = population_share)) +
+  geom_histogram(binwidth = 0.05, color = "black", fill = "blue") +
+  labs(title = "Distribution of Population Share",
+       x = "Population Share", y = "Frequency")
+```
+
+
+```{r}
+ggplot(filtered, aes(x = gdp_weighted_share)) +
+  geom_density() +
+  labs(title = "Distribution of GDP Weighted Share",
+       x = "GDP Weighted Share", y = "Density") +
+  theme_minimal()
+```
+

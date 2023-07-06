@@ -1,0 +1,69 @@
+---
+title: '"ANA 515 Assignment"'
+author: "Melissa Jayawardane111"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+yaml_code <- '
+---
+title: "ANA 515 Assignment 1"
+author: "Your Full Name"
+output:
+  html_document:
+    theme:
+      bootswatch: "Flatly"
+---
+'
+
+# Write YAML code to the R Markdown file
+cat(yaml_code, file = "assignment1.Rmd", sep = "\n")
+
+```
+
+
+
+
+
+```{r}
+library(tidyverse)
+library(bslib)
+library(knitr)
+library(tidyverse)
+url <- "https://raw.githubusercontent.com/fivethirtyeight/data/master/fifa/fifa_countries_audience.csv"
+dataset <- read_csv(url)
+dataset
+```
+
+```{r}
+filtered <- dataset %>% filter(population_share <= 1.0)
+```
+
+
+```{r}
+summary(filtered)
+```
+
+```{r}
+ggplot(filtered, aes(x = population_share)) +
+  geom_histogram(binwidth = 0.05, color = "black", fill = "blue") +
+  labs(title = "Distribution of Population Share",
+       x = "Population Share", y = "Frequency")
+```
+
+```{r}
+ggplot(filtered, aes(x = gdp_weighted_share)) +
+  geom_density() +
+  labs(title = "Distribution of GDP Weighted Share",
+       x = "GDP Weighted Share", y = "Density") +
+  theme_minimal()
+```
+
+
